@@ -44,4 +44,7 @@ abstract class AbstractSelectiveBroadcastEventManager<E extends Event> implement
 
         subscriberList.add(subscriber);
     }
+
+    @Override
+    public void close() {}
 }

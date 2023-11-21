@@ -2,11 +2,11 @@ package com.nulstudio.sa.event;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BroadcastEventManager<E extends Event> implements EventManager<E> {
-    protected final Collection<Subscriber<E>> subscribers = new HashSet<>();
+    protected final List<Subscriber<E>> subscribers = new ArrayList<>();
 
     public BroadcastEventManager() {
 
@@ -18,6 +18,9 @@ public class BroadcastEventManager<E extends Event> implements EventManager<E> {
             subscriber.receive(event);
         }
     }
+
+    @Override
+    public void close() {}
 
     @Override
     public void subscribe(@NotNull Subscriber<E> subscriber) {

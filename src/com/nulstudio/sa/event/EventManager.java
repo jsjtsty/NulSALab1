@@ -8,4 +8,6 @@ public interface EventManager<E extends Event> {
     void unsubscribe(@NotNull Subscriber<E> subscriber);
 
     void send(@NotNull E event);
+
+    void close();
 }
