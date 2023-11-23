@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class EventQueue<E extends Event> {
+class EventQueue<E extends Event> {
 
     protected final Queue<E> eventQueue = new ConcurrentLinkedQueue<>();
 
@@ -40,6 +40,7 @@ public class EventQueue<E extends Event> {
     public synchronized E dequeue() {
         while (eventQueue.isEmpty()) {
             if (!started) {
+                clear();
                 return null;
             }
 
@@ -59,6 +60,11 @@ public class EventQueue<E extends Event> {
 
     public synchronized void enqueueDeadEvent(@NotNull E event) {
         deadQueue.add(event);
+    }
+
+    public synchronized void clear() {
+        eventQueue.clear();
+        deadQueue.clear();
     }
 
     public synchronized void close() {

@@ -20,6 +20,11 @@ public class BroadcastEventManager<E extends Event> implements EventManager<E> {
     }
 
     @Override
+    public void clear() {
+        subscribers.clear();
+    }
+
+    @Override
     public void close() {}
 
     @Override

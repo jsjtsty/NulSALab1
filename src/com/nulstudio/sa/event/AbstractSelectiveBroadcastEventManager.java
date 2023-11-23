@@ -33,6 +33,12 @@ abstract class AbstractSelectiveBroadcastEventManager<E extends Event> implement
     }
 
     @Override
+    public void clear() {
+        subscribers.clear();
+        broadcastSubscribers.clear();
+    }
+
+    @Override
     public void subscribe(@NotNull String topic, @NotNull Subscriber<E> subscriber) {
         final List<Subscriber<E>> subscriberList;
         if (subscribers.containsKey(topic)) {

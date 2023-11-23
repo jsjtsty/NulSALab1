@@ -46,6 +46,12 @@ public class UnicastBroadcastEventManager<E extends Event> extends AbstractSelec
     }
 
     @Override
+    public void clear() {
+        super.clear();
+        eventQueue.clear();
+    }
+
+    @Override
     public void send(@NotNull E event) {
         eventQueue.enqueue(event);
     }

@@ -9,5 +9,7 @@ public interface EventManager<E extends Event> {
 
     void send(@NotNull E event);
 
+    void clear();
+
     void close();
 }
