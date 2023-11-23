@@ -1,4 +1,4 @@
-package com.nulstudio.sa;
+package com.nulstudio.sa.test;
 
 import com.nulstudio.sa.event.Event;
 import com.nulstudio.sa.event.EventManager;
@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SimpleEventManagerThroughTester extends AbstractEventManagerThroughTester {
 
@@ -31,8 +32,8 @@ public class SimpleEventManagerThroughTester extends AbstractEventManagerThrough
 
     @Override
     public long test(long requestCount, int subscriberCount) {
-        final boolean[] ack = new boolean[subscriberCount];
-        final EventNotification eventNotification = id -> ack[id] = true;
+        final AtomicBoolean end = new AtomicBoolean(false);
+        final EventNotification eventNotification = id -> end.set(true);
         final List<Subscriber<Event>> subscribers = new ArrayList<>(subscriberCount);
         for (int subscriberId = 0; subscriberId < subscriberCount; ++subscriberId) {
             subscribers.add(new EventManagerTestSubscriber(subscriberId, eventNotification));
@@ -52,7 +53,9 @@ public class SimpleEventManagerThroughTester extends AbstractEventManagerThrough
         long endTime;
         do {
             endTime = System.currentTimeMillis();
-        } while (!checkAck(ack, subscriberCount));
+        } while (!end.get());
+
+        eventManager.close();
 
         return requestCount * 1000L / (endTime - startTime);
     }

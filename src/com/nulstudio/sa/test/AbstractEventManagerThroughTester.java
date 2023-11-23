@@ -1,4 +1,4 @@
-package com.nulstudio.sa;
+package com.nulstudio.sa.test;
 
 public abstract class AbstractEventManagerThroughTester implements EventManagerThroughTester {
 
@@ -9,17 +9,6 @@ public abstract class AbstractEventManagerThroughTester implements EventManagerT
     protected static final String DEFAULT_CONTENT = "";
 
     protected static final String END_CONTENT = "End";
-
-    protected static boolean checkAck(boolean[] ack, int count) {
-        boolean result = true;
-        for (int i = 0; i < count; ++i) {
-            if (!ack[i]) {
-                result = false;
-                break;
-            }
-        }
-        return result;
-    }
 
     @Override
     public long test() {
