@@ -46,9 +46,8 @@ public class SimpleEventManagerThroughTester extends AbstractEventManagerThrough
         for (long eventId = 0; eventId < requestCount - 1; ++eventId) {
             eventManager.send(new Event(DEFAULT_CONTENT));
         }
-        if (requestCount > 0) {
-            eventManager.send(new Event(END_CONTENT));
-        }
+        eventManager.send(new Event(END_CONTENT));
+
 
         long endTime;
         do {
